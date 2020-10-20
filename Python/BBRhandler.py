@@ -5,7 +5,7 @@ import datafordeleren
 
 
 def calculateEnergyDemand(kommunekode):
-    limit = 301
+    limit = 900*1000
     Filename = "BBR" + str(kommunekode)
     xlFilename = "SBi"
 
