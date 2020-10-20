@@ -1,0 +1,24 @@
+include "MapBasic.def"
+include "Maps.def"
+include "Local.def"
+include "Worker.def"
+
+Declare Sub main
+
+
+Sub main	
+	Close All
+	call addMap()	
+
+	Dim nWindowID As Integer	
+	nWindowID = FrontWindow()
+
+	call getEnergy(nWindowID)
+	call giveColors(nWindowID)	
+	call addPlans(nWindowID)		
+	call plotBuildings(nWindowID)	
+
+	call print(nWindowID)	
+	call calculateAreas(nWindowID)
+	call hide(nWindowID)	
+end sub
