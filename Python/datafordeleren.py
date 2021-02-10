@@ -48,7 +48,6 @@ def antalAdresseBygning(bygningId):
     except:
         return "not found"
 
-
 def getAdresser(xlfilename, sheetname, csvfilename):
     try:
         from urlparse import urlparse
@@ -230,7 +229,6 @@ def getAdgangsadressebetegnelse(husnummerID):
     except response.content as msg:
         print(msg)
 
-
 def getBygninger(kommunekode, filename, limit):
     try:
         from urlparse import urlparse
@@ -263,9 +261,9 @@ def getBygninger(kommunekode, filename, limit):
                     response, content = h.request(target.geturl(), method, body, headers)
                     data = numpy.append(data, json.loads(content))
                     i += 1
-                    print(str(len(json.loads(content))) + ' buildings in page ' + str(i), end="\r")
+                    print("Getting " + str(len(json.loads(content))) + ' buildings in page ' + str(i), end="\r")
 
-            print('Got ' + str(len(data)) + " buildings from " + str(i) + " pages på Datafordeleren")
+            print('Got ' + str(len(data)) + " buildings from " + str(i) + " pages on Datafordeleren")
 
             data_file = open(filename, 'w')
             csv_writer = csv.writer(data_file, delimiter=';', lineterminator='\n')
@@ -297,6 +295,7 @@ def getBygninger(kommunekode, filename, limit):
                             params.append("")
                     csv_writer.writerow(params)
                     j += 1
+                print("Getting adgangsadressebetegnelse for building nr " + str(j) + " from Datafordeleren", end="\r")
 
             print('Printed ' + str(j) + " buildings to: " + filename)
             data_file.close()
@@ -377,7 +376,6 @@ def getBygningsList(kommunekode):
 
     except response.content as msg:
         print(msg)
-
 
 def getDawaBygning(bygnignID):
     SearchEnergyLabelBBR = "https://dawa.aws.dk/bbrlight/"

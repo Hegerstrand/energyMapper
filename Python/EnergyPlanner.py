@@ -1,13 +1,17 @@
 import BBRhandler
 import sys
 
-if(len(sys.argv)>0):
-    try:
-        kommunekode = sys.argv[1]
-    except sys.argv as msg:
-        print(msg)
-else:
+try:
+    if(len(sys.argv)>1):
+        try:
+            kommunekode = sys.argv[1]
+        except sys.argv as msg:
+            print(msg)
+    else:
+        print('This version only support one kommunekode', sys.argv)
+except:
     print("Not found: sys.argv")
+    exit()
 
 if int(kommunekode) > 100:
     try:
@@ -17,4 +21,4 @@ if int(kommunekode) > 100:
         print(msg)
 
 else:
-    print('This version only support one kommunekode', sys.argv)
+    print('Input for kommunekode not found')
