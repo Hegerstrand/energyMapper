@@ -196,6 +196,101 @@ def getHusnummer(postnummer, filename, limit):
     except response.content as msg:
         print(msg)
 
+def getAdresseIdList(xlfilename, sheetname, csvfilename):
+    exceldata = pd.read_excel(xlfilename, sheetname)
+    data_file = open(csvfilename, 'w')
+    csv_writer = csv.writer(data_file, delimiter=';', lineterminator='\n')
+
+    headings = ["adressebetegnelse", "AdresseIdentificerer", "BBRenhedID", "BBRbygningID"]
+    csv_writer.writerow(headings)
+
+    adresselist = exceldata.values.tolist()
+
+    for adresse in adresselist:
+        params = []
+        params.append(adresse[0])
+        print("Getting IDs for " + adresse[0])
+        AdresseIdentificerer = getAdresseID(adresse[1], str(adresse[2]), str(adresse[3]), adresse[4], str(adresse[5]))
+        params.append(AdresseIdentificerer)
+
+        BBRIDs = getBBREnhed(AdresseIdentificerer)
+        BBRenhedID = BBRIDs[0]
+        BBRbygningID = BBRIDs[1]
+        params.append(BBRenhedID)
+        params.append(BBRbygningID)
+
+        csv_writer.writerow(params)
+
+    data_file.close()
+
+def getBBREnhed(AdresseIdentificerer):
+
+    try:
+        from urlparse import urlparse
+    except ImportError:
+        try:
+            from urllib.parse import urlparse
+        except ImportError:
+            print("urlparse failed")
+
+
+    uri = 'https://services.datafordeler.dk/BBR/BBRPublic/1/REST//'
+    path = "enhed"
+    request = "AdresseIdentificerer=" + AdresseIdentificerer
+    user = "username=AYWWPEBUAL&password=Login4Kort&format=json"
+    method = 'GET'
+    body = ''
+
+    h = http.Http()
+    print('Getting enhed for AdresseIdentificerer ' + AdresseIdentificerer + ' from BBR')
+    try:
+        target = urlparse(uri + path + '?' + request + '&' + user)
+        response, content = h.request(target.geturl(), method, body, headers)
+
+        if response.status == 200:
+            data = json.loads(content)
+            enhed = data[0]
+            return [enhed["id_lokalId"],enhed["bygning"]]
+
+        else:
+            print(uri + " returned status " + response['status'])
+            return ["not found","not found"]
+    except response.content as msg:
+        print(msg)
+
+def getAdresseID(Vejnavn,Husnr,Etage,Dør,Postnr):
+
+    try:
+        from urlparse import urlparse
+    except ImportError:
+        try:
+            from urllib.parse import urlparse
+        except ImportError:
+            print("urlparse failed")
+
+    uri = 'http://dawa.aws.dk/'
+    path = "adresser"
+    request = "vejnavn=" + Vejnavn + "&husnr=" + Husnr + "&etage=" + Etage + "&dør=" + Dør + "&postnr=" + Postnr
+    method = 'GET'
+    body = ''
+
+    h = http.Http()
+
+    try:
+        target = urlparse(uri + path + '?' + request)
+        response, content = h.request(target.geturl(), method, body, headers)
+
+        if response.status == 200:
+            data = json.loads(content)
+            adresse = data[0]
+            return adresse["id"]
+
+        else:
+            print(uri + " returned status " + response['status'])
+    except response.content as msg:
+        print(msg)
+
+
 def getAdgangsadressebetegnelse(husnummerID):
 
     try:
@@ -225,7 +320,7 @@ def getAdgangsadressebetegnelse(husnummerID):
             return husnummer["adgangsadressebetegnelse"]
 
         else:
-            print(uri + " returned status not " + response['status'])
+            print(uri + " returned status " + response['status'])
     except response.content as msg:
         print(msg)
 
