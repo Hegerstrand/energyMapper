@@ -1,0 +1,32 @@
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): emoweb.dk:443
+DEBUG:urllib3.connectionpool:https://emoweb.dk:443 "GET /EMOData/EMOData.svc/Ping HTTP/1.1" 200 163
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): dawa.aws.dk:443
+DEBUG:urllib3.connectionpool:https://dawa.aws.dk:443 "GET /bbrlight/bygninger?id=8a4793db-f5ec-4b6a-9c61-2f871e3970fc HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): emoweb.dk:443
+DEBUG:urllib3.connectionpool:https://emoweb.dk:443 "GET /EMOData/EMOData.svc/SearchEnergyLabelBBR/621/100254/0/TL,BA HTTP/1.1" 200 994
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): emoweb.dk:443
+DEBUG:urllib3.connectionpool:https://emoweb.dk:443 "GET /EMOData/EMOData.svc/Ping HTTP/1.1" 200 163
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): emoweb.dk:443
+DEBUG:urllib3.connectionpool:https://emoweb.dk:443 "GET /EMOData/EMOData.svc/FetchEnergyLabelDetails/311008368 HTTP/1.1" 200 310
+INFO:root:Could not write 311008368 with status code : 4.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): emoweb.dk:443
+DEBUG:urllib3.connectionpool:https://emoweb.dk:443 "GET /EMOData/EMOData.svc/Ping HTTP/1.1" 200 163
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): emoweb.dk:443
+DEBUG:urllib3.connectionpool:https://emoweb.dk:443 "GET /EMOData/EMOData.svc/Ping HTTP/1.1" 200 163
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): emoweb.dk:443
+DEBUG:urllib3.connectionpool:https://emoweb.dk:443 "GET /EMOData/EMOData.svc/FetchEnergyLabelDetails/311008368 HTTP/1.1" 200 310
+INFO:root:Could not write 311008368 with status code : 4.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): emoweb.dk:443
+DEBUG:urllib3.connectionpool:https://emoweb.dk:443 "GET /EMOData/EMOData.svc/Ping HTTP/1.1" 200 163
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): emoweb.dk:443
+DEBUG:urllib3.connectionpool:https://emoweb.dk:443 "GET /EMOData/EMOData.svc/Ping HTTP/1.1" 200 163
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): emoweb.dk:443
+DEBUG:urllib3.connectionpool:https://emoweb.dk:443 "GET /EMOData/EMOData.svc/FetchEnergyLabelDetails/311008368 HTTP/1.1" 200 310
+INFO:root:Could not write 311008368 with status code : 4.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): emoweb.dk:443
+DEBUG:urllib3.connectionpool:https://emoweb.dk:443 "GET /EMOData/EMOData.svc/Ping HTTP/1.1" 200 163
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): emoweb.dk:443
+DEBUG:urllib3.connectionpool:https://emoweb.dk:443 "GET /EMOData/EMOData.svc/Ping HTTP/1.1" 200 163
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): emoweb.dk:443
+DEBUG:urllib3.connectionpool:https://emoweb.dk:443 "GET /EMOData/EMOData.svc/FetchEnergyLabelDetails/311008368 HTTP/1.1" 200 310
+INFO:root:Could not write 311008368 with status code : 4.

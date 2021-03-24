@@ -10,6 +10,7 @@ headers = {
     'Content-Type': 'application/json; charset=UTF-8'
 }
 
+
 def antalAdresseBygning(bygningId):
     try:
         from urlparse import urlparse
@@ -43,10 +44,11 @@ def antalAdresseBygning(bygningId):
                         i = i + len(adresser)
                 except:
                     continue
-            #print("Found " + str(i) + " adresser in bygning " + bygningId)
+            # print("Found " + str(i) + " adresser in bygning " + bygningId)
         return i
     except:
         return "not found"
+
 
 def getAdresser(xlfilename, sheetname, csvfilename):
     try:
@@ -112,6 +114,7 @@ def getAdresser(xlfilename, sheetname, csvfilename):
     print("Printed " + str(j) + " adresser for " + str(i) + " husnummer")
     data_file.close()
 
+
 def getHusnummer(postnummer, filename, limit):
     try:
         from urlparse import urlparse
@@ -138,7 +141,7 @@ def getHusnummer(postnummer, filename, limit):
             data = json.loads(content)
             i = 1
             if len(data) == 100:
-                while len(data) == 100*i & len(data) < limit:
+                while len(data) == 100 * i & len(data) < limit:
                     target = urlparse(uri + path + '?' + request + "&page=" + str(i))
                     response, content = h.request(target.geturl(), method, body, headers)
                     data = numpy.append(data, json.loads(content))
@@ -157,8 +160,8 @@ def getHusnummer(postnummer, filename, limit):
             csv_writer.writerow(headings)
 
             dictionary = {'postnummer': 'postnr'
-                ,"navngivenVej": "vejadresseringsnavn"
-                #, 'navngivenVej': 'navngivenVejKommunedelList' ,"navngivenVejKommunedelList": "navngivenVejKommunedel",'navngivenVejKommunedel': 'vejkode'
+                , "navngivenVej": "vejadresseringsnavn"
+                          # , 'navngivenVej': 'navngivenVejKommunedelList' ,"navngivenVejKommunedelList": "navngivenVejKommunedel",'navngivenVejKommunedel': 'vejkode'
                 , "kommuneinddeling": "kommunekode"
                 , 'adgangspunkt': 'position'}
 
@@ -196,6 +199,7 @@ def getHusnummer(postnummer, filename, limit):
     except response.content as msg:
         print(msg)
 
+
 def getAdresseIdList(xlfilename, sheetname, csvfilename):
     exceldata = pd.read_excel(xlfilename, sheetname)
     data_file = open(csvfilename, 'w')
@@ -223,8 +227,8 @@ def getAdresseIdList(xlfilename, sheetname, csvfilename):
 
     data_file.close()
 
-def getBBREnhed(AdresseIdentificerer):
 
+def getBBREnhed(AdresseIdentificerer):
     try:
         from urlparse import urlparse
     except ImportError:
@@ -232,7 +236,6 @@ def getBBREnhed(AdresseIdentificerer):
             from urllib.parse import urlparse
         except ImportError:
             print("urlparse failed")
-
 
     uri = 'https://services.datafordeler.dk/BBR/BBRPublic/1/REST//'
     path = "enhed"
@@ -250,16 +253,16 @@ def getBBREnhed(AdresseIdentificerer):
         if response.status == 200:
             data = json.loads(content)
             enhed = data[0]
-            return [enhed["id_lokalId"],enhed["bygning"]]
+            return [enhed["id_lokalId"], enhed["bygning"]]
 
         else:
             print(uri + " returned status " + response['status'])
-            return ["not found","not found"]
+            return ["not found", "not found"]
     except response.content as msg:
         print(msg)
 
-def getAdresseID(Vejnavn,Husnr,Etage,Dør,Postnr):
 
+def getAdresseID(Vejnavn, Husnr, Etage, Dør, Postnr):
     try:
         from urlparse import urlparse
     except ImportError:
@@ -292,7 +295,6 @@ def getAdresseID(Vejnavn,Husnr,Etage,Dør,Postnr):
 
 
 def getAdgangsadressebetegnelse(husnummerID):
-
     try:
         from urlparse import urlparse
     except ImportError:
@@ -308,7 +310,7 @@ def getAdgangsadressebetegnelse(husnummerID):
     body = ''
 
     h = http.Http()
-    #print('Getting ' + path + ' where ' + request + ' from ' + uri)
+    # print('Getting ' + path + ' where ' + request + ' from ' + uri)
 
     try:
         target = urlparse(uri + path + '?' + request)
@@ -323,6 +325,7 @@ def getAdgangsadressebetegnelse(husnummerID):
             print(uri + " returned status " + response['status'])
     except response.content as msg:
         print(msg)
+
 
 def getBygninger(kommunekode, filename, limit):
     try:
@@ -351,7 +354,7 @@ def getBygninger(kommunekode, filename, limit):
             data = json.loads(content)
             i = 1
             if len(data) == 100:
-                while len(data) == 100*i & len(data) < limit:
+                while len(data) == 100 * i & len(data) < limit:
                     target = urlparse(uri + path + '?' + request + '&' + user + "&page=" + str(i))
                     response, content = h.request(target.geturl(), method, body, headers)
                     data = numpy.append(data, json.loads(content))
@@ -364,8 +367,10 @@ def getBygninger(kommunekode, filename, limit):
             csv_writer = csv.writer(data_file, delimiter=';', lineterminator='\n')
 
             headings = ["id_lokalId", "husnummer", "jordstykke", "byg021BygningensAnvendelse"
-                , "byg038SamletBygningsareal", "byg039BygningensSamledeBoligAreal", "byg040BygningensSamledeErhvervsAreal", "eta022Kælderareal"
-                , "byg026Opførelsesår", "byg027OmTilbygningsår", "byg056Varmeinstallation", "byg057Opvarmningsmiddel", "byg058SupplerendeVarme", "byg404Koordinat"
+                , "byg038SamletBygningsareal", "byg039BygningensSamledeBoligAreal",
+                        "byg040BygningensSamledeErhvervsAreal", "eta022Kælderareal"
+                , "byg026Opførelsesår", "byg027OmTilbygningsår", "byg056Varmeinstallation", "byg057Opvarmningsmiddel",
+                        "byg058SupplerendeVarme", "byg404Koordinat"
                 , "byg406Koordinatsystem", "status", "adgangsadressebetegnelse", "antAdresser"]
             csv_writer.writerow(headings)
 
@@ -373,7 +378,8 @@ def getBygninger(kommunekode, filename, limit):
             for bygning in data:
                 if "byg021BygningensAnvendelse" in bygning and "status" in bygning:
                     status = int(bygning["status"])
-                    if int(bygning["byg021BygningensAnvendelse"]) > 600 or status < 5 or status > 9 or "byg406Koordinatsystem" not in bygning:
+                    if int(bygning[
+                               "byg021BygningensAnvendelse"]) > 600 or status < 5 or status > 9 or "byg406Koordinatsystem" not in bygning:
                         continue
                     params = []
                     for heading in headings:
@@ -400,6 +406,7 @@ def getBygninger(kommunekode, filename, limit):
     except response.content as msg:
         print(msg)
 
+
 def getEta022Kælderareal(etageList):
     areal = 0
     for etage in etageList:
@@ -409,7 +416,8 @@ def getEta022Kælderareal(etageList):
                 areal += int(etagedata["eta022Kælderareal"])
     return str(areal)
 
-def getBygningsList(kommunekode):
+
+def getBygningsList(kommunekode, whereQuery):
     try:
         from urlparse import urlparse
     except ImportError:
@@ -427,6 +435,8 @@ def getBygningsList(kommunekode):
     uri = 'https://services.datafordeler.dk/BBR/BBRPublic/1/REST//'
     path = "bygning"
     request = "kommunekode=0" + str(kommunekode)
+    if len(whereQuery) > 1:
+        request = request + "&" + whereQuery
     user = "username=AYWWPEBUAL&password=Login4Kort&format=json"
     method = 'GET'
     body = ''
@@ -447,7 +457,7 @@ def getBygningsList(kommunekode):
             data = json.loads(content)
             i = 1
             if len(data) == 100:
-                while len(data) == 100*i:
+                while len(data) == 100 * i:
                     target = urlparse(uri + path + '?' + request + '&' + user + "&page=" + str(i))
                     response, content = h.request(target.geturl(), method, body, headers)
                     data = numpy.append(data, json.loads(content))
@@ -471,6 +481,7 @@ def getBygningsList(kommunekode):
 
     except response.content as msg:
         print(msg)
+
 
 def getDawaBygning(bygnignID):
     SearchEnergyLabelBBR = "https://dawa.aws.dk/bbrlight/"

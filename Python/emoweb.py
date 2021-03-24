@@ -16,7 +16,6 @@ logging.basicConfig(filename='emowebLog.log',level=logging.DEBUG)
 headers = {
     'Authorization': 'Basic am9sbkBjb3dpLmNvbToxMjM0NTY3OA=='
 }
-
 DawaHeadings = {
     "Bygning_id",
     "BYG_ANVEND_KODE",
@@ -27,7 +26,6 @@ DawaHeadings = {
     "ERHV_ARL_SAML",
     "ESREjdNr"
 }
-
 EmoDataHeadings = {
     'EnergyLabelSerialIdentifier',
     'BBRUseCode',
@@ -60,7 +58,6 @@ EmoDataHeadings = {
     'YearOfConstruction',
     'ZipCode'
 }
-
 ProposalCalculationHeadings = {
     "AdditionalHeat",
     "AdditionalHeatCost",
@@ -85,7 +82,6 @@ ProposalOverviewHeadings = {
     "TotalProfitableInvestment",
     "TotalRecommendedInvestment"
 }
-
 ProposalHeadings = {
     "Investment",
     "Profitable",
@@ -101,7 +97,7 @@ ProposalHeadings = {
 # For et kommunekode findes samtlige bygninger fra BBR. For hver bygning findes ESR ejendomsnr (ESREjdNr).
 # ESR ejendomsnr og kommunekode benyttes sammen til findes LabelSerialIdentifier ved /SearchEnergyLabelBBR
 # LabelSerialIdentifier bruges til at hente /FetchEnergyLabelDetails
-def getAllBuildingsInKommune(kommuneNummer):
+def getAllBuildingsInKommune(kommuneNummer, whereQuery):
 
     try:
         from urlparse import urlparse
@@ -127,7 +123,7 @@ def getAllBuildingsInKommune(kommuneNummer):
                     bygningsList = bygnignsData["id_lokalId"]
 
                 else:
-                    bygningsList = datafordeleren.getBygningsList(kommuneNummer)
+                    bygningsList = datafordeleren.getBygningsList(kommuneNummer, whereQuery)
 
                 print("Going through list of " + str(len(bygningsList)) + " buildings")
 
@@ -160,8 +156,6 @@ def getAllBuildingsInKommune(kommuneNummer):
         getEnergyLabelForLabelSerialIdentifier(LabelSerialIdentifierList)
     except ImportError:
         print("Ping failed")
-
-
 
 # kommunekode og ESR ejendomsnr (property) benyttes sammen til findes LabelSerialIdentifier ved /SearchEnergyLabelBBR
 def getLabelSerialIdentifier(municipality, property, building):
@@ -198,12 +192,10 @@ def getLabelSerialIdentifier(municipality, property, building):
         print("getLabelSerialIdentifier: SearchEnergyLabelBBR " + query + " failed")
         return
 
-
 # LabelSerialIdentifier fra/til bruges til at hente /FetchEnergyLabelDetails
 def getEnergyLabelForLabelSerialIdentifierFromTo(FromLabelSerialIdentifier,ToLabelSerialIdentifier):
     LabelSerialIdentifierList = range(FromLabelSerialIdentifier, ToLabelSerialIdentifier)
     getEnergyLabelForLabelSerialIdentifier(LabelSerialIdentifierList)
-
 
 # En liste af LabelSerialIdentifier bruges til at hente /FetchEnergyLabelDetails
 def getEnergyLabelForLabelSerialIdentifier(LabelSerialIdentifierList):
@@ -268,7 +260,6 @@ def getEnergyLabelForLabelSerialIdentifier(LabelSerialIdentifierList):
             print("getEnergyLabelForLabelSerialIdentifier failed at ping")
     except ImportError:
         print("Ping failed")
-
 
 def saveProposalOverviewInSummary(Summary_writer, LabelSerialIdentifier,EnergyLabelDetails, ProposalOverview):
 
